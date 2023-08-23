@@ -1,76 +1,104 @@
-// Класс для работы с формой авторизации и регистрации
-class UserForm {
-    constructor() {
-        // Получаем элементы форм и сообщений об ошибках из DOM
-        this.loginForm = document.querySelector('#loginForm');
-        this.registerForm = document.querySelector('#registerForm');
-        this.loginErrorMessageBox = document.querySelector('#loginErrorMessage');
-        this.registerErrorMessageBox = document.querySelector('#registerErrorMessage');
-        
-        // Привязываем методы обработчиков к текущему контексту (this)
-        this.loginFormCallback = this.loginFormAction.bind(this);
-        this.registerFormCallback = this.registerFormAction.bind(this);
-        
-        // Добавляем обработчики событий на формы
-        this.loginForm.addEventListener('submit', this.loginFormCallback);
-        this.registerForm.addEventListener('submit', this.registerFormCallback);
-    }
+//  Класс для работы с формой авторизации 
+"use strict"
 
-    // Метод для вывода сообщения об ошибке авторизации
-    setLoginErrorMessage(message) {
-        this.loginErrorMessageBox.textContent = message;
-    }
+const userFormObject = new UserForm(); // создает объект класса UserForm
 
-    // Метод для вывода сообщения об ошибке регистрации
-    setRegisterErrorMessage(message) {
-        this.registerErrorMessageBox.textContent = message;
-    }
+userFormObject.loginFormCallback = (data) => { // чтобы не потерять контекс (this) лучше (проще)
+  // использовать стрелочную ф-ию
+  ApiConnector.login(data, response => {
+  // console.log(response); // проверяет какой объект возвращает сервер. 
 
-    // Обработчик события сабмита формы авторизации
-    loginFormAction(event) {
-        event.preventDefault();
-        // Получаем данные из формы
-        const formData = this.getData(this.loginForm);
-        
-        // Выполняем запрос на сервер для авторизации
-        ApiConnector.login(formData, (response) => {
-            if (response.success) {
-                // Если авторизация успешна, перезагружаем страницу
-                location.reload();
-            } else {
-                // Выводим сообщение об ошибке авторизации
-                this.setLoginErrorMessage(response.error);
-            }
-        });
-    }
+    if(response.success ) {// проверяет успешность запроса. 
+      location.reload(); // перезагрузка страницы (с переходом в личный кабинет),
+      
+    } else {
+      userFormObject.setLoginErrorMessage(response.error);
+       метод у объекта/экземпляра класса userForm
+    };
+  });
+};
 
-  // Обработчик события сабмита формы регистрации
-    registerFormAction(event) {
-        event.preventDefault();
-        // Получаем данные из формы
-        const formData = this.getData(this.registerForm);
-        
-        // Выполняем запрос на сервер для регистрации
-        ApiConnector.register(formData, (response) => {
-            if (response.success) {
-                // Если регистрация успешна, перезагружаем страницу
-                location.reload();
-            } else {
-                // Выводим сообщение об ошибке регистрации
-                this.setRegisterErrorMessage(response.error);
-            }
-        });
-    }
+// Регистрация пользователя
 
-    // Метод для получения данных из формы
-    getData(form) {
-        const formData = new FormData(form);
-        return {
-            login: formData.get('login'),
-            password: formData.get('password')
-        };
-    }
-}
+"use strict"
+
+const registerFormObject = new RegisterForm(); // создает объект класса RegisterForm
+
+
+registerFormObject.registerFormCallback = (data) => { // Функция, которая будет обрабатывать
+
+
+//getData(form) //Метод получения данных из переданной формы???
+
+ApiConnector.login(data, response => { //Вот тут не поняла, что менять?
+    // console.log(response); // проверяет какой объект возвращает сервер. 
+
+    if(response.success === true) {// проверяет успешность запроса. Само значение свойства success является логическим (тип boolean), поэтому можно сократить данное условие до простого response.success (удалить === true)
+      location.reload(); // перезагрузка страницы (с переходом в личный кабинет), 
+      //потому что логин/пароль были верные. Тут перезагрузка нужна?
+
+    } else {
+registerFormObject.setregisterErrorMessage(response.error);  //Вывод сообщений при регистрации
+//метод у объекта/экземпляра класса registerForm, 
+    };
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// создает объект класса UserForm
+const userFormObject = new UserForm();
+
+/** 
+ * Вход 
+ */
+userFormObject.loginFormCallback = function(data) {
+  ApiConnector.login(data, response => {
+    console.log(response); // проверяет какой объект возвращает сервер
+    // проверяет успешность запроса
+    if(response.success === true) {
+      location.reload();
+      
+    } else {
+      setLoginErrorMessage(message);
+
+    };
+
+  });
+
+};
+
+
+
+
+// const userForm = new UserForm();
+// UserForm.loginFormCallback = data =>console.log(data)
+// if (          ?       ){         //запрос успешный 
+//     location.reload();    //- вызываем 
+//     } else {                        // запрос неуспешный
+//     this.setLoginErrorMessage('Ошибка!')
+    
+    
+//     ApiConnector ({login: oleg@demo.ru,  password: demo}, response =>console.log(response));  
+//     //эмуляция отправки правильных данных (якобы полученных из формы) и в консоль вывoдим ответ 
+//     //сервера
+
+
+
+
 
 
 
