@@ -13,22 +13,15 @@ userFormObject.loginFormCallback = (data) => { // чтобы не потерят
       
     } else {
       userFormObject.setLoginErrorMessage(response.error);
-       метод у объекта/экземпляра класса userForm
+       //метод у объекта/экземпляра класса userForm
     };
   });
 };
 
 // Регистрация пользователя
 
-"use strict"
 
-const registerFormObject = new RegisterForm(); // создает объект класса RegisterForm
-
-
-registerFormObject.registerFormCallback = (data) => { // Функция, которая будет обрабатывать
-
-
-//getData(form) //Метод получения данных из переданной формы???
+userFormObject.registerFormCallback = (data) => { // Функция, которая будет обрабатывать
 
 ApiConnector.login(data, response => { //Вот тут не поняла, что менять?
     // console.log(response); // проверяет какой объект возвращает сервер. 
@@ -38,7 +31,7 @@ ApiConnector.login(data, response => { //Вот тут не поняла, что
       //потому что логин/пароль были верные. Тут перезагрузка нужна?
 
     } else {
-registerFormObject.setregisterErrorMessage(response.error);  //Вывод сообщений при регистрации
+userFormObject.setregisterErrorMessage(response.error);  //Вывод сообщений при регистрации
 //метод у объекта/экземпляра класса registerForm, 
     };
   });
@@ -59,42 +52,10 @@ registerFormObject.setregisterErrorMessage(response.error);  //Вывод соо
 
 
 
-// создает объект класса UserForm
-const userFormObject = new UserForm();
-
-/** 
- * Вход 
- */
-userFormObject.loginFormCallback = function(data) {
-  ApiConnector.login(data, response => {
-    console.log(response); // проверяет какой объект возвращает сервер
-    // проверяет успешность запроса
-    if(response.success === true) {
-      location.reload();
-      
-    } else {
-      setLoginErrorMessage(message);
-
-    };
-
-  });
-
-};
 
 
 
 
-// const userForm = new UserForm();
-// UserForm.loginFormCallback = data =>console.log(data)
-// if (          ?       ){         //запрос успешный 
-//     location.reload();    //- вызываем 
-//     } else {                        // запрос неуспешный
-//     this.setLoginErrorMessage('Ошибка!')
-    
-    
-//     ApiConnector ({login: oleg@demo.ru,  password: demo}, response =>console.log(response));  
-//     //эмуляция отправки правильных данных (якобы полученных из формы) и в консоль вывoдим ответ 
-//     //сервера
 
 
 
