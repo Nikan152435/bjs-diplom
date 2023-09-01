@@ -1,11 +1,11 @@
-//  Класс для работы с формой авторизации 
+//  Авторизация пользователя
 "use strict"
 
 const userFormObject = new UserForm(); // создает объект класса UserForm
 
 userFormObject.loginFormCallback = (data) => { // чтобы не потерять контекс (this) лучше (проще)
   // использовать стрелочную ф-ию
-  ApiConnector.login(data, response => {
+  ApiConnector.login(data, response => {// Метод для авторизации
     // console.log(response); // проверяет какой объект возвращает сервер. 
 
     if (response.success) {// проверяет успешность запроса. 
@@ -13,7 +13,7 @@ userFormObject.loginFormCallback = (data) => { // чтобы не потерят
 
     } else {
       userFormObject.setLoginErrorMessage(response.error);
-      //метод у объекта/экземпляра класса userForm
+      
     };
   });
 };
@@ -23,7 +23,7 @@ userFormObject.loginFormCallback = (data) => { // чтобы не потерят
 
 userFormObject.registerFormCallback = (data) => { // Функция, которая будет обрабатывать
 
-  ApiConnector.login(data, response => { //Вот тут не поняла, что менять?
+  ApiConnector.register(data, response => { // Метод для регистрации
     // console.log(response); // проверяет какой объект возвращает сервер. 
 
     if (response.success === true) {// проверяет успешность запроса. Само значение свойства success является логическим (тип boolean), поэтому можно сократить данное условие до простого response.success (удалить === true)
