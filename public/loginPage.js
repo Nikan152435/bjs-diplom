@@ -1,19 +1,13 @@
 //  Авторизация пользователя
 "use strict"
+const userFormObject = new UserForm();
+userFormObject.loginFormCallback = (data) => {
 
-const userFormObject = new UserForm(); // создает объект класса UserForm
-
-userFormObject.loginFormCallback = (data) => { // чтобы не потерять контекс (this) лучше (проще)
-  // использовать стрелочную ф-ию
-  ApiConnector.login(data, response => {// Метод для авторизации
-    // console.log(response); // проверяет какой объект возвращает сервер. 
-
-    if (response.success) {// проверяет успешность запроса. 
-      location.reload(); // перезагрузка страницы (с переходом в личный кабинет),
-
+  ApiConnector.login(data, response => {
+    if (response.success) {
+      location.reload();
     } else {
       userFormObject.setLoginErrorMessage(response.error);
-      
     };
   });
 };
@@ -21,18 +15,15 @@ userFormObject.loginFormCallback = (data) => { // чтобы не потерят
 // Регистрация пользователя
 
 
-userFormObject.registerFormCallback = (data) => { // Функция, которая будет обрабатывать
+userFormObject.registerFormCallback = (data) => {
 
-  ApiConnector.register(data, response => { // Метод для регистрации
-    // console.log(response); // проверяет какой объект возвращает сервер. 
+  ApiConnector.register(data, response => { .
 
-    if (response.success === true) {// проверяет успешность запроса. Само значение свойства success является логическим (тип boolean), поэтому можно сократить данное условие до простого response.success (удалить === true)
-      location.reload(); // перезагрузка страницы (с переходом в личный кабинет), 
-      //потому что логин/пароль были верные. Тут перезагрузка нужна?
+    if (response.success === true) {
+      location.reload();
 
     } else {
-      userFormObject.setregisterErrorMessage(response.error);  //Вывод сообщений при регистрации
-      
+      userFormObject.setregisterErrorMessage(response.error);
     };
   });
 };
